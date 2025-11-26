@@ -48,6 +48,24 @@ namespace PersonalBlog.Services
 
             return article;
         }
-
+        public void SaveArticle(Article article)
+        {
+            var filePath = Path.Combine(_path, $"{article.Id}.json");
+            var json = System.Text.Json.JsonSerializer.Serialize(article, new System.Text.Json.JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+            File.WriteAllText(filePath, json);
+        }
+        public int GenerateNewId()
+        {
+            var files = Directory.GetFiles(_path, "*.json");
+            if (files.Length == 0)
+            {
+                return 1;
+            }
+            var ids = files.Select(file => int.Parse(Path.GetFileNameWithoutExtension(file))).ToList();
+            return ids.Max() + 1;
+        }
     }
 }

@@ -1,10 +1,16 @@
 ﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+@model PersonalBlog.Pages.IndexModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Personal Blog</h1>
+<p>Latest Articles</p>
+
+<ul>
+    @foreach (var article in Model.Articles)
+    {
+        <li>
+            <a href="/Article?id=@article.Id">@article.Title</a>
+            <br />
+            <small>Published: @article.PublishDate.ToShortDateString()</small>
+        </li>
+    }
+</ul>

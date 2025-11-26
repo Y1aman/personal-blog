@@ -1,20 +1,23 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PersonalBlog.Models;
+using PersonalBlog.Services;
 
 namespace PersonalBlog.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ArticleService _service;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public List<Article> Articles { get; set; } = new List<Article>();
+
+        public IndexModel(ArticleService service)
         {
-            _logger = logger;
+            _service = service;
         }
 
         public void OnGet()
         {
-
+            Articles = _service.GetAllArticles();
         }
     }
 }
