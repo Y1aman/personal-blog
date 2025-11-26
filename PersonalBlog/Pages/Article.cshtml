@@ -1,4 +1,17 @@
 ﻿@page
 @model PersonalBlog.Pages.ArticleModel
-@{
+
+@if (Model.Article != null)
+{
+    <h1>@Model.Article.Title</h1>
+
+    <p><small>Published on: @Model.Article.PublishDate.ToShortDateString()</small></p>
+
+    <hr />
+
+    <p>@Model.Article.Content</p>
+}
+else
+{
+    <p>Article not found.</p>
 }
