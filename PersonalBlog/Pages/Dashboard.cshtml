@@ -1,0 +1,28 @@
+﻿@page
+@model PersonalBlog.Pages.DashboardModel
+
+<h2>Dashboard</h2>
+
+<p>
+    <a href="/AddArticle">Add New Article</a>
+</p>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var article in Model.Articles)
+    {
+        <tr>
+            <td>@article.Title</td>
+            <td>@article.PublishDate.ToShortDateString()</td>
+            <td>
+                <a href="/EditArticle?id=@article.Id">Edit</a> |
+                <a href="/DeleteArticle?id=@article.Id">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
