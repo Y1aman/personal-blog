@@ -1,0 +1,19 @@
+﻿@page
+@model PersonalBlog.Pages.LoginModel
+
+<h2>Login</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p style="color:red">@Model.ErrorMessage</p>
+}
+
+<form method="post">
+    <label>Username:</label><br />
+    <input type="text" asp-for="Username" /><br /><br />
+
+    <label>Password:</label><br />
+    <input type="password" asp-for="Password" /><br /><br />
+
+    <button type="submit">Login</button>
+</form>
