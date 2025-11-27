@@ -1,0 +1,19 @@
+﻿@page
+@model PersonalBlog.Pages.AddArticleModel
+
+<h2>Add New Article</h2>
+
+<form method="post">
+
+    <label>Title:</label><br />
+    <input type="text" asp-for="Title" /><br /><br />
+
+    <label>Content:</label><br />
+    <textarea asp-for="Content" rows="8" cols="50"></textarea><br /><br />
+
+    <label>Publish Date:</label><br />
+    <input type="date" asp-for="PublishDate" /><br /><br />
+
+    <button type="submit">Add Article</button>
+
+</form>

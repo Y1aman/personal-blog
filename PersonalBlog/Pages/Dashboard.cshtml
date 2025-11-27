@@ -4,7 +4,17 @@
 <h2>Dashboard</h2>
 
 <p>
-    <a href="/AddArticle">Add New Article</a>
+    <a href="/AddArticle">
+        <button style="padding:6px 12px; background:#3498db; color:white; border:none; border-radius:4px;">
+            Add New Article
+        </button>
+    </a>
+
+    <a href="/Logout">
+        <button style="padding:6px 12px; background:#e74c3c; color:white; border:none; border-radius:4px; margin-left:10px;">
+            Logout
+        </button>
+    </a>
 </p>
 
 <table border="1" cellpadding="5">
@@ -20,8 +30,17 @@
             <td>@article.Title</td>
             <td>@article.PublishDate.ToShortDateString()</td>
             <td>
-                <a href="/EditArticle?id=@article.Id">Edit</a> |
-                <a href="/DeleteArticle?id=@article.Id">Delete</a>
+                <a href="/EditArticle?id=@article.Id">
+                    <button style="padding:4px 8px; background:#27ae60; color:white; border:none; border-radius:4px;">
+                        Edit
+                    </button>
+                </a>
+
+                <a href="/DeleteArticle?id=@article.Id">
+                    <button style="padding:4px 8px; background:#c0392b; color:white; border:none; border-radius:4px; margin-left:5px;">
+                        Delete
+                    </button>
+                </a>
             </td>
         </tr>
     }

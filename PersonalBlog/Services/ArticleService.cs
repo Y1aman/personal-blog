@@ -67,5 +67,15 @@ namespace PersonalBlog.Services
             var ids = files.Select(file => int.Parse(Path.GetFileNameWithoutExtension(file))).ToList();
             return ids.Max() + 1;
         }
+        public void DeleteArticle(int id)
+        {
+            var filePath = Path.Combine(_path, $"{id}.json");
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
+
     }
 }

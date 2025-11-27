@@ -1,0 +1,21 @@
+﻿@page
+@model PersonalBlog.Pages.EditArticleModel
+
+<h2>Edit Article</h2>
+
+<form method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <label>Title:</label><br />
+    <input type="text" asp-for="Title" /><br /><br />
+
+    <label>Content:</label><br />
+    <textarea asp-for="Content" rows="8" cols="50"></textarea><br /><br />
+
+    <label>Publish Date:</label><br />
+    <input type="date" asp-for="PublishDate" /><br /><br />
+
+    <button type="submit">Save Changes</button>
+
+</form>
