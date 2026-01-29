@@ -1,6 +1,8 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using PersonalBlog.Models;
+using System.Linq;
+
 
 public class JsonArticleRepository : IArticleRepository
 {
@@ -19,16 +21,16 @@ public class JsonArticleRepository : IArticleRepository
         var files = Directory.GetFiles(_path, "*.json");
         var articles = new List<Article>();
 
-        foreach(var file in files)
+        foreach (var file in files)
         {
             var json = File.ReadAllText(file);
             var article = JsonSerializer.Deserialize<Article>(json);
-            if(article != null)
-            {
+
+            if (article != null)
                 articles.Add(article);
-            }
-            return articles.OrderByDescending(a => a.PublishDate).ToList();
         }
+
+        return articles.OrderByDescending(a => a.PublishDate).ToList();
     }
     public Article? GetById(int id)
     {
@@ -58,15 +60,14 @@ public class JsonArticleRepository : IArticleRepository
     public int GenerateId()
     {
         var files = Directory.GetFiles(_path, "*.json");
-        if(files.Length == 0)
-        {
+
+        if (files.Length == 0)
             return 1;
-        }
-        var ids= files.Select(file => 
-        {
-            var fileName = Path.GetFileNameWithoutExtension(file);
-            return int.TryParse(fileName, out var id) ? id : 0;
-        });
+
+        var ids = files
+            .Select(f => int.Parse(Path.GetFileNameWithoutExtension(f)))
+            .ToList();
+
         return ids.Max() + 1;
     }
 }
