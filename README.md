@@ -1,6 +1,7 @@
 # Personal Blog 📝  
 A simple personal blog built using **ASP.NET Core Razor Pages**, following the project requirements from roadmap.sh.  
-Visitors can read articles, while the admin can add, edit, and delete them — all stored as JSON files without any database.
+Visitors can read articles, while the admin can add, edit, and delete them.  
+The application supports **two storage modes: JSON files and SQLite**, configurable from `appsettings.json`.
 
 ---
 
@@ -20,18 +21,20 @@ Visitors can read articles, while the admin can add, edit, and delete them — a
 
 ---
 
-## 📂 Storage (File-based)
+## 📂 Storage Modes
 
-Every article is saved as its own `.json` file inside:
+The project supports **two interchangeable storage modes**, selected from `appsettings.json`.
 
-```
-articles/
-   1.json
-   2.json
-   3.json
-```
+### 🗂️ JSON (File-based)
+Each article is saved as its own `.json` file inside:
 
-Example JSON:
+Articles/
+1.json
+2.json
+3.json
+
+
+Example JSON file:
 
 ```json
 {
@@ -40,29 +43,50 @@ Example JSON:
   "Content": "Lorem ipsum...",
   "PublishDate": "2024-07-21T00:00:00"
 }
-```
+No database is required in this mode.
 
-No database is used — everything is stored in the file system.
+🗄️ SQLite (Database-based)
+Articles can also be stored in a SQLite database using Entity Framework Core.
 
----
+Database file: blog.db
 
-## 🛠️ Technologies Used
-- ASP.NET Core 8 Razor Pages  
-- C#  
-- Sessions (admin auth)  
-- JSON file storage  
-- HTML/CSS (default Razor layout)
+Created automatically on first run
 
----
+Data stored in an Articles table
 
-## 📦 Project Structure
+No manual setup or migrations required for basic usage
 
-```
+⚙️ Storage Configuration
+Storage mode is selected from appsettings.json:
+
+"StorageMode": "Json"
+or
+
+"StorageMode": "Sqlite"
+The application uses a repository pattern with IArticleRepository to switch storage implementations automatically at runtime.
+
+🛠️ Technologies Used
+ASP.NET Core 8 Razor Pages
+
+C#
+
+Entity Framework Core (SQLite)
+
+Sessions (admin authentication)
+
+JSON file storage
+
+HTML/CSS (default Razor layout)
+
+📦 Project Structure
 /Models
    Article.cs
 
 /Services
    ArticleService.cs
+   IArticleRepository.cs
+   JsonArticleRepository.cs
+   SqliteArticleRepository.cs
 
 /Pages
    Index.cshtml
@@ -73,45 +97,36 @@ No database is used — everything is stored in the file system.
    EditArticle.cshtml
    DeleteArticle.cshtml
    Logout.cshtml
-```
+🔧 Article Repository Methods
+GetAll() → returns all articles
 
----
+GetById(id) → loads one article
 
-## 🔧 ArticleService Methods
-- **GetAllArticles()** → returns all articles  
-- **GetArticleById(id)** → loads one article  
-- **SaveArticle(article)** → creates or updates JSON file  
-- **DeleteArticle(id)** → deletes JSON file  
-- **GenerateId()** → returns next available ID  
+Save(article) → creates or updates an article
 
----
+DeleteById(id) → deletes an article
 
-## 🔐 Default Admin Login
+GenerateId() → returns next available ID (JSON mode)
 
-```
+🔐 Default Admin Login
 username: admin
 password: 123
-```
+▶️ How to Run
+Clone or download the repository
 
----
+Open the project in Visual Studio
 
-## ▶️ How to Run
+Configure StorageMode in appsettings.json
 
-1. Clone or download repository  
-2. Open in Visual Studio  
-3. Run the project  
-4. Visit:
+Run the project
 
-```
+Visit:
+
 /Login
-```
+Log in and manage all articles from the Dashboard
 
-5. Log in → manage all articles from Dashboard
-
----
-
-## 📘 License
+📘 License
 Free to use and modify.
 
-## Project URL
+🔗 Project URL
 https://roadmap.sh/projects/personal-blog
